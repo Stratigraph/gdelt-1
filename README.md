@@ -1,2 +1,4 @@
 # gdelt
-This project get the raw data of gdelt from google. It also unzip the raw file, put them into hdfs and hbase for further use.  
+## This project get the raw data of gdelt from google. Include V1 and V2.
+## The shell scripts unzip the raw zip files and import them into HDFS(appendto the file named by current year) and HBASE.
+## For use, you need pay attention to the parameters about the paths used in the scripts and modifies them as you need before using.
