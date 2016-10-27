@@ -7,4 +7,4 @@
 
 * * *
 
-## For use, you need pay attention to the parameters about the paths used in the scripts and modifies them as you need before using.
+### For use, you need pay attention to the parameters about the paths used in the scripts and modify them as you need before using.
