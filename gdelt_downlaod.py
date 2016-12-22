@@ -48,40 +48,26 @@ def gdeltdata1(datatype):
 # Gdelt version1 contains three type of files: events,gkg,mentions
 # In version2, we don't need to choose parameter datatype, the function works for all the types.
 def gdeltdata2():
-        indexurl = urllib2.urlopen(
-            'http://data.gdeltproject.org/gdeltv2/masterfilelist.txt')
-        index = []
-        for link in indexurl:
-                link1 = link.strip('\n')
-                t = link1.split(' ')
-                for t1 in t:
-                        if t1.find('zip') == -1: 
-                                pass
-                        else:
-                                index.append(t1) 
-        for link in index:
-                link1 = link.split('/')
-                for t in link1:
-                        if t.find('zip') == -1:
-                                pass
-                        else:
-                                file = t 
-                                filelocal = '/data/gdeltorgin/v2/' + file
-                                fileurl = link
-                                if os.path.exists(filelocal):  
-                                        pass
-                                else:
-                                        try:
-                                                f = urllib2.urlopen(fileurl)
-                                                data = f.read()
-                                                with open(filelocal, "wb") as code:
-                                                        code.write(data)
-                                                logger2.info("下载文件 %s" % (fileurl,))
-                                                # copy the download files to another dir or machine for cluster process
-                                                fileserver = '/data2/gdelt_realtime/' + filelocal[17:]
-                                                os.system("scp " + filelocal + " " + fileserver)
-                                        except urllib2.URLError, e:
-                                                logger2.error("下载文件 %s %s" % (fileurl,str(e),))
+    indexurl = urllib2.urlopen(
+        'http://data.gdeltproject.org/gdeltv2/masterfilelist.txt')  # 需要下载的文件的主页
+    index = []
+
+    for link in indexurl:
+    	index.append(link.strip('\n').split(' ')[-1])
+    	
+    for fileurl in index:
+        filelocal = '/data/gdeltorgin/v2/' + fileurl.split('/')[-1] # 文件名
+        if os.path.exists(filelocal):  # 如果文件存在则不下载
+            pass
+        else:
+            try:
+                urllib.urlretrieve(fileurl,filelocal)
+                logger2.info("下载文件 %s" % (fileurl,))
+                # copy the download files to another dir or machine for cluster process
+                fileserver = '/data2/gdelt_realtime/' + filelocal[17:]
+                os.system("scp " + filelocal + " " + fileserver)
+        except urllib2.URLError, e:
+                logger2.error("下载文件 %s %s" % (fileurl,str(e),))
 
 # main function
 if __name__=="__main__":
