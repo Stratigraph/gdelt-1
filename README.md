@@ -1,9 +1,9 @@
 # gdelt
-
+[Gdelt](http://www.gdeltproject.org) contains all the events happening in this planet since 1979 and is updated every 15 minutes.
 * * *
 
-* This python script get the raw data of gdelt from google. Include V1 and V2.
-* The shell scripts unzip the raw zip files and import them into HDFS and HBASE.
+* Python script get the raw data of gdelt from google. Include V1 and V2.
+* Shell scripts unzip the raw zip files and import them into HDFS and HBASE.
 
 * * *
 
